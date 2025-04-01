@@ -12,6 +12,23 @@
   justify-content: center;
   align-items: center;
 }
+.avatar-wrapper {
+  display: flex;
+  margin: 20px;
+}
+.avatar-wrapper img {
+  margin: 20px;
+}
+.screen4Btn{
+  background-color: rebeccapurple;
+  color: white;
+  padding: 12px 25px;
+  border: 2px solid rebeccapurple;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 400ms;
+}
 .screen1 button {
   background-color: rebeccapurple;
   color: white;
@@ -22,21 +39,31 @@
   font-size: 1.25rem;
   transition: all 400ms;
 }
-.screen1 button:hover{
-    background-color: white;
-    color: black;
+.screen1 button:hover {
+  background-color: white;
+  color: black;
 }
-.screen2 .avatar{
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-    cursor: pointer;
+.screen2 .avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  cursor: pointer;
 }
-.screen3{
-    position: relative;
+.screen3 {
+  position: relative;
 }
-.screen3 .killShot{
-    height: 80px;
-    width: 80px;
-    position: absolute;
+.screen3 .killShot {
+  height: 80px;
+  width: 80px;
+  position: absolute;
+}
+.gameOverScreen{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.gameOverScreen h1{
+  font-size: 30px;
 }

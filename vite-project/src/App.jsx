@@ -9,6 +9,9 @@ function App() {
   const [selectedAvatar, setSelectedAvatar] = useState("");
   const [score, setScore] = useState(0);
   const [generatedImages, setGeneratedImages] = useState([]);
+  const [timer, setTimer] = useState(60);
+  const [timerRunning, setTimerRunning] = useState(false);
+  console.log(score);
 
   function handleClick(src) {
     setSelectedAvatar(src);
@@ -23,17 +26,46 @@ function App() {
           x: getRandomNumber("x") + "px",
           y: getRandomNumber("y") + "px",
         };
-        setGeneratedImages([...generatedImages,obj]);
+        setGeneratedImages((prevImages) => [...prevImages, obj]);
       }, 1000);
-      return () => clearInterval(interval);
+
+      setTimerRunning(true);
+      const timerInterval = setInterval(() => {
+        setTimer((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(timerInterval);
+            setTimerRunning(false);
+            setScreen((prevScreen) => prevScreen + 1);
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+      return () => {
+        clearInterval(interval);
+        clearInterval(timerInterval);
+      };
     }
-  }, [generatedImages, screen, selectedAvatar]);
-  console.log(generatedImages);
+  }, [screen, selectedAvatar]);
 
   function getRandomNumber(axis) {
     return axis === "x"
       ? Math.floor(Math.random() * 1000)
       : Math.floor(Math.random() * 400);
+  }
+  function handleImageClick(id) {
+    setGeneratedImages((prevImages) =>
+      prevImages.filter((image) => image.id !== id)
+    );
+    setScore((prevScore) => prevScore + 1);
+  }
+  function restartGame() {
+    setScreen(1);
+    setScore(0);
+    setGeneratedImages([]);
+    setTimer(60);
+    setTimerRunning(false);
+    setSelectedAvatar("");
   }
   return (
     <>
@@ -81,10 +113,10 @@ function App() {
         <div className="screen3">
           <div className="info">
             <p>
-              Time Left : <span></span>
+              Time Left : <span>{timer}</span>
             </p>
             <p>
-              Score: <span>{score}</span>
+              Score: <span className="score text-black">{score}</span>
             </p>
           </div>
           <div className="playingArea">
@@ -93,14 +125,25 @@ function App() {
                 return (
                   <img
                     className="killShot"
+                    id={image.id}
                     key={index}
                     src={selectedAvatar}
                     alt="Image"
                     style={{ left: image.x, top: image.y }}
+                    onClick={() => handleImageClick(image.id)}
                   />
                 );
               })}
           </div>
+        </div>
+      )}
+      {screen === 4 && (
+        <div className="gameOverScreen">
+          <h1>Game Over!</h1>
+          <h1>Your Score: {score}</h1>
+          <button className="screen4Btn" onClick={restartGame}>
+            Restart Game
+          </button>
         </div>
       )}
     </>
