@@ -1,0 +1,42 @@
+@import "tailwindcss";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.screen1,
+.screen2 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.screen1 button {
+  background-color: rebeccapurple;
+  color: white;
+  padding: 12px 25px;
+  border: 2px solid rebeccapurple;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 400ms;
+}
+.screen1 button:hover{
+    background-color: white;
+    color: black;
+}
+.screen2 .avatar{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    cursor: pointer;
+}
+.screen3{
+    position: relative;
+}
+.screen3 .killShot{
+    height: 80px;
+    width: 80px;
+    position: absolute;
+}
