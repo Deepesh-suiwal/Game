@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import hulk from "./assets/hulk.jpg";
-import batman from "./assets/batman.jpg";
-import ironman from "./assets/ironman.jpeg";
+import hulk from "./assets/hulk.png";
+import batman from "./assets/batman.png";
+import ironman from "./assets/ironman.png";
 
 function App() {
   const [screen, setScreen] = useState(1);
@@ -27,18 +27,24 @@ function App() {
           y: getRandomNumber("y") + "px",
         };
         setGeneratedImages((prevImages) => [...prevImages, obj]);
-      }, 1000);
+      }, 900);
 
       setTimerRunning(true);
       const timerInterval = setInterval(() => {
         setTimer((prevTime) => {
-          if (prevTime <= 1) {
+          if (score === 10) {
+            clearInterval(timerInterval);
+            setTimerRunning(false);
+            setScreen(5);
+            return 0;
+          } else if (prevTime <= 1) {
             clearInterval(timerInterval);
             setTimerRunning(false);
             setScreen((prevScreen) => prevScreen + 1);
             return 0;
+          } else {
+            return prevTime - 1;
           }
-          return prevTime - 1;
         });
       }, 1000);
       return () => {
@@ -46,7 +52,7 @@ function App() {
         clearInterval(timerInterval);
       };
     }
-  }, [screen, selectedAvatar]);
+  }, [screen, selectedAvatar, score]);
 
   function getRandomNumber(axis) {
     return axis === "x"
@@ -79,7 +85,7 @@ function App() {
 
       {screen === 2 && (
         <div className="screen2">
-          <h3>Select Your Avatar</h3>
+          <h3 className="text-2xl">Select Your Avatar</h3>
           <div className="avatar-wrapper">
             <img
               src={hulk}
@@ -112,10 +118,11 @@ function App() {
       {screen === 3 && (
         <div className="screen3">
           <div className="info">
-            <p>
+            <p className="text-2xl">
               Time Left : <span>{timer}</span>
             </p>
-            <p>
+            <p className="text-2xl"> Target:60</p>
+            <p className="text-2xl">
               Score: <span className="score text-black">{score}</span>
             </p>
           </div>
@@ -138,9 +145,18 @@ function App() {
         </div>
       )}
       {screen === 4 && (
-        <div className="gameOverScreen">
-          <h1>Game Over!</h1>
-          <h1>Your Score: {score}</h1>
+        <div className="screen4">
+          <h1 className="text-2xl">Game Over!</h1>
+          <h1 className="text-2xl">Your Score: {score}</h1>
+          <button className="screen4Btn" onClick={restartGame}>
+            Restart Game
+          </button>
+        </div>
+      )}
+      {screen === 5 && (
+        <div className="screen5">
+          <h1 className="text-2xl"> Congratulations! you won the Game</h1>
+          <h1 className="text-2xl">Your Score: {score}</h1>
           <button className="screen4Btn" onClick={restartGame}>
             Restart Game
           </button>

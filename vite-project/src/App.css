@@ -14,12 +14,14 @@
 }
 .avatar-wrapper {
   display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 20px;
 }
 .avatar-wrapper img {
   margin: 20px;
 }
-.screen4Btn{
+.screen4Btn {
   background-color: rebeccapurple;
   color: white;
   padding: 12px 25px;
@@ -39,7 +41,9 @@
   font-size: 1.25rem;
   transition: all 400ms;
 }
-.screen1 button:hover {
+.screen1,
+.screen4,
+.screen5 button:hover {
   background-color: white;
   color: black;
 }
@@ -54,16 +58,17 @@
 }
 .screen3 .killShot {
   height: 80px;
-  width: 80px;
+  width: 90px;
   position: absolute;
 }
-.gameOverScreen{
+.screen4,
+.screen5 {
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.gameOverScreen h1{
+.screen3 h1 {
   font-size: 30px;
 }
